@@ -1,2 +1,7 @@
 <div class="ui container">
+	<ul ng-repeat="channel in ircService.channels">
+		<li ng-repeat="message in messages[channel]">
+			{{ message.from }}: {{ message.message }}
+		</li>
+	</ul>
 </div>
