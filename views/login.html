@@ -1,37 +1,65 @@
 <div class="ui center aligned text container">
 	<br />
 	<div class="ui basic segment">
-		<h1 class="ui inverted header">uf-irc</h1>
-		<form class="ui form" ng-submit="login()">
-			<div class="ui transparent inverted left icon input">
-				<i class="server icon"></i>
-				<input class="white" type="text" ng-model="ircService.server" placeholder="Server" style="color: white;" />
+		<div ng-show="!loading">
+			<div class="ui error message ng-hide" ng-show="no.server">
+				<i class="close icon"></i>
+				<p>
+					You must provide a server to connect to.
+				</p>
 			</div>
-			<br /><br />
-			<div class="ui inverted transparent left icon input">
-				<i class="user icon"></i>
-				<input class="white" type="text" ng-model="ircService.nick" placeholder="Nick" style="color: white;" />
+			<div class="ui error message ng-hide" ng-show="no.nick">
+				<i class="close icon"></i>
+				<p>
+					You must provide a nickname.
+				</p>
 			</div>
-			<br /><br />
-			<div class="ui inverted transparent action input">
-				<input
-					class="white" type="text" ng-model="newChannel"
-					placeholder="Channel (ex. #mychannel)" style="color: white;"
-					ng-keyup="$event.keyCode == 13 && addChannel()" />
-				<i class="plus icon link" ng-click="addChannel()"></i>
+			<div class="ui error message ng-hide" ng-show="no.channels">
+				<i class="close icon"></i>
+				<p>
+					You must provide a list of channels to join.
+				</p>
 			</div>
-			<br /><br />
-			<div class="ui white labels">
-				<div class="ui label" ng-repeat="channel in ircService.channels">
-					{{ channel }}
-					<i class="delete icon" ng-click="removeChannel($index)"></i>
+			<h1 class="ui inverted header">uf-irc</h1>
+			<form class="ui form" ng-submit="login()">
+				<div class="ui transparent inverted left icon input">
+					<i class="server icon"></i>
+					<input class="white" type="text" ng-model="ircService.server" placeholder="Server" style="color: white;" />
+				</div>
+				<br />
+				<br />
+				<div class="ui inverted transparent left icon input">
+					<i class="user icon"></i>
+					<input class="white" type="text" ng-model="ircService.nick" placeholder="Nick" style="color: white;" />
+				</div>
+				<br />
+				<br />
+				<div class="ui inverted transparent action input">
+					<input class="white" type="text" ng-model="newChannel" placeholder="Channel (ex. #mychannel)" style="color: white;" ng-keyup="$event.keyCode == 13 && addChannel()"
+					/>
+					<i class="plus icon link" ng-click="addChannel()"></i>
+				</div>
+				<br />
+				<br />
+				<div class="ui white labels">
+					<div class="ui label" ng-repeat="channel in ircService.channels">
+						{{ channel }}
+						<i class="delete icon" ng-click="removeChannel($index)"></i>
+					</div>
+				</div>
+				<br />
+				<br />
+				<button class="ui inverted white button" type="submit">
+					<i class="plug icon"></i> Connect
+				</button>
+			</form>
+		</div>
+		<div class="ng-hide" ng-show="loading">
+			<div class="ui segment" style="min-height: 6em;">
+				<div class="ui active dimmer">
+					<div class="ui text loader">Connecting</div>
 				</div>
 			</div>
-			<br />
-			<br />
-			<button class="ui inverted white button" type="submit">
-				<i class="plug icon"></i> Connect
-			</button>
-		</form>
+		</div>
 	</div>
 </div>
